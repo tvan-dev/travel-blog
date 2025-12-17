@@ -1,1 +1,7 @@
 @import 'tailwindcss';
+.blog-quill .ql-editor {
+  min-height: 180px;   /* ↓ giảm */
+  max-height: 300px;  /* tránh quá cao */
+  overflow-y: auto;
+  line-height: 1.6;
+}

@@ -1,11 +1,17 @@
-import BlogItem from "../BlogItem"
-import { useSelector } from "react-redux"
-import type BlogType from "../../../../types/blog.type"
-import type { RootState } from "../../../../store"
-
+import BlogItem from '../BlogItem'
+import type BlogType from '../../../../types/blog.type'
+import type { RootState } from '../../../../store'
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '../../../../hooks'
+import { fetchBlogList } from '../../blogSlice'
 
 export default function BlogList() {
-  const blogList = useSelector((state: RootState) => state.blog.blogList)
+  const dispatch = useAppDispatch()
+  const blogList = useAppSelector((state: RootState) => state.blog.blogList)
+
+  useEffect(() => {
+    dispatch(fetchBlogList())
+  }, [dispatch])
 
   return (
     <div className='bg-white py-6 sm:py-8 lg:py-12'>
@@ -19,13 +25,11 @@ export default function BlogList() {
           </p>
         </div>
         <div className='grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-2 xl:grid-cols-2 xl:gap-8'>
-
-        {blogList.map((blogItem:BlogType) => {
-          return <BlogItem key={blogItem.id} blogItem={blogItem} />
-        })}
+          {blogList.map((blogItem: BlogType) => {
+            return <BlogItem key={blogItem.id} blogItem={blogItem} />
+          })}
         </div>
       </div>
-      
     </div>
   )
 }

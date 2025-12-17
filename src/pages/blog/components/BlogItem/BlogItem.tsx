@@ -1,6 +1,6 @@
 import type BlogType from '../../../../types/blog.type'
-import { useDispatch } from 'react-redux'
-import { deleteBlog, startEditing } from '../../blogSlice'
+import { useAppDispatch } from '../../../../hooks'
+import { deleteBlog, getBlogById } from '../../blogSlice'
 import { useContext } from 'react'
 import { BlogContext } from '../../BlogContext'
 
@@ -17,14 +17,14 @@ export default function BlogItem(prop: BlogItemProps) {
   }
   const { setActiveModal } = ctx
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   function handleDelete() {
     dispatch(deleteBlog(blogItem.id))
   }
 
   function handleEdit() {
     setActiveModal('update')
-    dispatch(startEditing(blogItem.id))
+    dispatch(getBlogById(blogItem.id))
   }
   return (
     <div className='flex flex-col items-center overflow-hidden rounded-lg border md:flex-row'>
